@@ -1,4 +1,14 @@
+const API_URL = "http://localhost:8000";
+const axios = require("axios");
+
 async function httpGetPlanets() {
+  // .then((res) => console.log(res));
+  const response = await axios.get(`${API_URL}/planets`);
+  // const data =
+
+  // console.log(`Fetched Planets ${data}`);
+
+  return response.data;
   // TODO: Once API is ready.
   // Load planets and return as JSON.
 }
@@ -18,9 +28,4 @@ async function httpAbortLaunch(id) {
   // Delete launch with given ID.
 }
 
-export {
-  httpGetPlanets,
-  httpGetLaunches,
-  httpSubmitLaunch,
-  httpAbortLaunch,
-};
+export { httpGetPlanets, httpGetLaunches, httpSubmitLaunch, httpAbortLaunch };
