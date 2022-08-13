@@ -13,8 +13,23 @@ async function httpGetLaunches() {
 }
 
 async function httpSubmitLaunch(launch) {
-  // TODO: Once API is ready.
-  // Submit given launch data to launch system.
+  console.log(JSON.stringify(launch));
+
+  try {
+    const response = await axios.post(
+      `${API_URL}/launches`,
+      JSON.stringify(launch),
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    console.log(response);
+    return response;
+  } catch (err) {
+    return {
+      ok: false,
+    };
+  }
 }
 
 async function httpAbortLaunch(id) {
