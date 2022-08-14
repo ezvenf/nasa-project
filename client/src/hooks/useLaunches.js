@@ -34,7 +34,7 @@ function useLaunches(onSuccessSound, onAbortSound, onFailureSound) {
 
       // TODO: Set success based on response.
 
-      const success = response.status;
+      const success = response.status >= 200 && response.status < 300;
       if (success) {
         getLaunches();
         setTimeout(() => {
@@ -43,6 +43,7 @@ function useLaunches(onSuccessSound, onAbortSound, onFailureSound) {
         }, 800);
       } else {
         onFailureSound();
+        setPendingLaunch(false);
       }
     },
     [getLaunches, onSuccessSound, onFailureSound]
@@ -53,7 +54,8 @@ function useLaunches(onSuccessSound, onAbortSound, onFailureSound) {
       const response = await httpAbortLaunch(id);
 
       // TODO: Set success based on response.
-      const success = false;
+      const success = response.status >= 200 && response.status < 300;
+      console.log(success);
       if (success) {
         getLaunches();
         onAbortSound();

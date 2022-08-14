@@ -8,33 +8,30 @@ async function httpGetPlanets() {
 
 async function httpGetLaunches() {
   const response = await axios.get(`${API_URL}/launches`);
-  console.log(response.data);
   return response.data.sort((a, b) => a.flightNumber - b.flightNumber);
 }
 
 async function httpSubmitLaunch(launch) {
-  console.log(JSON.stringify(launch));
-
   try {
-    const response = await axios.post(
-      `${API_URL}/launches`,
-      JSON.stringify(launch),
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    console.log(response);
-    return response;
+    return await axios.post(`${API_URL}/launches`, JSON.stringify(launch), {
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (err) {
+    console.log(err);
     return {
-      ok: false,
+      status: false,
     };
   }
 }
 
 async function httpAbortLaunch(id) {
-  // TODO: Once API is ready.
-  // Delete launch with given ID.
+  try {
+    return await axios.delete(`${API_URL}/launches/${id}`);
+  } catch (err) {
+    return {
+      status: false,
+    };
+  }
 }
 
 export { httpGetPlanets, httpGetLaunches, httpSubmitLaunch, httpAbortLaunch };
